@@ -15,4 +15,4 @@ const kRedDarkColor = Color(0xffd43e3e);
 const kRedLightColor = Color(0xfffed8d8);
 const kYellowDarkColor = Color(0xffffd100);
 const kYellowLightColor = Color(0xfffff9e7);
-
+const kTextColor = Color(0xFF757575);
