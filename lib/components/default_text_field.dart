@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class DefaultTextField extends StatelessWidget {
   String labelText;
+  TextInputType? textInputType;
 
   DefaultTextField({
     required this.labelText,
+    this.textInputType,
     Key? key,
   }) : super(key: key);
 
@@ -19,6 +21,7 @@ class DefaultTextField extends StatelessWidget {
         child: Row(
           children: [
             Expanded(child: TextFormField(
+              keyboardType: textInputType == null ? TextInputType.text : textInputType,
               decoration: InputDecoration(
                   labelText: labelText,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
