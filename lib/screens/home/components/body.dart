@@ -41,9 +41,13 @@ class _BodyState extends State<Body> {
                   Expanded(child: DefaultTextField(labelText: "AOD")),
                 ],
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(20),
-              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              DefaultTextField(labelText: "CHARGEABLE WEIGHT (kg)"),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              Text("AIRFREIGHT"),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              SizedBox(height: getProportionateScreenHeight(20),),
               Row(
                 children: [
                   Expanded(
@@ -54,6 +58,85 @@ class _BodyState extends State<Body> {
                   Expanded(flex: 40 ,child: DefaultDropdownButton()),
                 ],
               ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              Text("ORIGIN CHARGES"),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "ORIGIN C.", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "ORIGIN C. per kg", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              Text("DESTINATION CHARGES"),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "DESTINATION C.", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "DESTINATION C. per kg", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              Text("OTHER CHARGES"),
+              Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "OTHER C.", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20),),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 60,
+                    child: DefaultTextField(labelText: "OTHER C. per kg", textInputType: TextInputType.number,),
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(20),),
+                  Expanded(flex: 40 ,child: DefaultDropdownButton()),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenWidth(20),),
             ],
           ),
         ),
