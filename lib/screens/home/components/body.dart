@@ -45,7 +45,7 @@ class _BodyState extends State<Body> {
               DefaultTextField(labelText: "CHARGEABLE WEIGHT (kg)"),
               SizedBox(height: getProportionateScreenHeight(20),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
-              Text("AIRFREIGHT"),
+              Text("AIRFREIGHT", style: TextStyle(color: kPrimaryLight),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
               SizedBox(height: getProportionateScreenHeight(20),),
               Row(
@@ -60,7 +60,7 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: getProportionateScreenHeight(20),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
-              Text("ORIGIN CHARGES"),
+              Text("ORIGIN CHARGES", style: TextStyle(color: kPrimaryLight),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
               SizedBox(height: getProportionateScreenHeight(20),),
               Row(
@@ -86,7 +86,7 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: getProportionateScreenHeight(20),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
-              Text("DESTINATION CHARGES"),
+              Text("DESTINATION CHARGES", style: TextStyle(color: kPrimaryLight),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
               SizedBox(height: getProportionateScreenHeight(20),),
               Row(
@@ -112,7 +112,7 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: getProportionateScreenHeight(20),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
-              Text("OTHER CHARGES"),
+              Text("OTHER CHARGES", style: TextStyle(color: kPrimaryLight),),
               Container(height: 2, width: double.infinity, color: kPrimaryLightColor,),
               SizedBox(height: getProportionateScreenHeight(20),),
               Row(
@@ -136,7 +136,7 @@ class _BodyState extends State<Body> {
                   Expanded(flex: 40 ,child: DefaultDropdownButton()),
                 ],
               ),
-              SizedBox(height: getProportionateScreenWidth(20),),
+              SizedBox(height: getProportionateScreenWidth(80),),
             ],
           ),
         ),

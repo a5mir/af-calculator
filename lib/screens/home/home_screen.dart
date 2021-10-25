@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   int _pageIndex = 0;
   late PageController _pageController;
 
@@ -34,9 +35,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        elevation: 0,
+        backgroundColor: kGreenLightColor,
+        label: Text("1990.00 EUR", style: TextStyle(color: kGreenDarkColor),),
+        icon: SvgPicture.asset("assets/icons/Add.svg", color: kGreenDarkColor,),
+           ),
       appBar: AppBar(
         title: Text("Home"),
-        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: SvgPicture.asset("assets/icons/Clear.svg",  color: kRedDarkColor,),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  primary: kRedLightColor,
+                  onPrimary: kRedDarkColor),
+            ),
+          )
+        ],
         titleTextStyle: TextStyle(
             color: Colors.black, fontSize: getProportionateScreenWidth(20)),
       ),
@@ -63,9 +87,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kPrimaryColor,
               )),
           BottomNavigationBarItem(
+              icon: SvgPicture.asset("assets/icons/Coins.svg",
+                  color: Colors.black),
+              label: 'Charges',
+              activeIcon: SvgPicture.asset(
+                "assets/icons/CoinsB.svg",
+                color: kPrimaryColor,
+              )),
+          BottomNavigationBarItem(
               icon: SvgPicture.asset("assets/icons/List.svg",
                   color: Colors.black),
-              label: 'List',
+              label: 'Weight',
               activeIcon: SvgPicture.asset(
                 "assets/icons/List.svg",
                 color: kPrimaryColor,
