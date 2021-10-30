@@ -13,6 +13,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  var _aolController = TextEditingController();
+  var _aodController = TextEditingController();
+  var _cwController = TextEditingController();
+  var _afController = TextEditingController();
+  var _ocController = TextEditingController();
+  var _ocpkgController = TextEditingController();
+  var _dcController = TextEditingController();
+  var _dcpkgController = TextEditingController();
+  var _otcController = TextEditingController();
+  var _otcpkgController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +41,7 @@ class _BodyState extends State<Body> {
                 primary: kRedDarkColor,
                 backgroundColor: kRedLightColor,
               ),
-              onPressed: (){},
+              onPressed: (){_clearTextFields();},
               child: SvgPicture.asset("assets/icons/Clear.svg", color: kRedDarkColor,),
             ),
           ),
@@ -76,17 +89,17 @@ class _BodyState extends State<Body> {
                 ),
                 Row(
                   children: [
-                    Expanded(child: DefaultTextField(labelText: "AOL")),
+                    Expanded(child: DefaultTextField(labelText: "AOL", textEditingController: _aolController,)),
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(child: DefaultTextField(labelText: "AOD")),
+                    Expanded(child: DefaultTextField(labelText: "AOD", textEditingController: _aodController,)),
                   ],
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
                 ),
-                DefaultTextField(labelText: "CHARGEABLE WEIGHT (kg)"),
+                DefaultTextField(labelText: "CHARGEABLE WEIGHT (kg)", textEditingController: _cwController,),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
                 ),
@@ -113,6 +126,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "A/F per kg",
+                        textEditingController: _afController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -148,6 +162,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "ORIGIN C.",
+                        textEditingController: _ocController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -166,6 +181,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "ORIGIN C. per kg",
+                        textEditingController: _ocpkgController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -201,6 +217,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "DESTINATION C.",
+                        textEditingController: _dcController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -219,6 +236,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "DESTINATION C. per kg",
+                        textEditingController: _dcpkgController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -254,6 +272,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "OTHER C.",
+                        textEditingController: _otcController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -272,6 +291,7 @@ class _BodyState extends State<Body> {
                       flex: 60,
                       child: DefaultTextField(
                         labelText: "OTHER C. per kg",
+                        textEditingController: _otcpkgController,
                         textInputType: TextInputType.number,
                       ),
                     ),
@@ -290,5 +310,18 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void _clearTextFields() {
+    _aolController.clear();
+    _aodController.clear();
+    _cwController.clear();
+    _afController.clear();
+    _ocController.clear();
+    _ocpkgController.clear();
+    _dcController.clear();
+    _dcpkgController.clear();
+    _otcController.clear();
+    _otcpkgController.clear();
   }
 }
