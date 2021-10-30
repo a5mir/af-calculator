@@ -35,32 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        elevation: 0,
-        backgroundColor: kGreenLightColor,
-        label: Text("1990.00 EUR", style: TextStyle(color: kGreenDarkColor),),
-        icon: SvgPicture.asset("assets/icons/Add.svg", color: kGreenDarkColor,),
-           ),
       appBar: AppBar(
         title: Text("Home"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: SvgPicture.asset("assets/icons/Clear.svg",  color: kRedDarkColor,),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  shadowColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  primary: kRedLightColor,
-                  onPrimary: kRedDarkColor),
-            ),
-          )
-        ],
+        centerTitle: true,
         titleTextStyle: TextStyle(
             color: Colors.black, fontSize: getProportionateScreenWidth(20)),
       ),
