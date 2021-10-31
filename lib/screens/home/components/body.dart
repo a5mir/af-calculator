@@ -1,6 +1,7 @@
 import 'package:af_calculator/components/default_dropdown_button.dart';
 import 'package:af_calculator/components/default_text_field.dart';
 import 'package:af_calculator/constants.dart';
+import 'package:af_calculator/model/offer.dart';
 import 'package:af_calculator/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,14 +55,22 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(56)),
                   primary: kGreenDarkColor,
                   backgroundColor: kGreenLightColor),
-              onPressed: () {},
+              onPressed: () {
+                Offer? offer = createOffer();
+                if(offer != null){
+                  offerList.add(offer);
+                } else {
+                  // warning message
+                  print('warning');
+                  }
+                },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset("assets/icons/Add.svg", color: kGreenDarkColor,),
                   SizedBox(width: getProportionateScreenWidth(5),),
                   Text(
-                    "19990.0 EUR",
+                    "00.0 EUR",
                     style: TextStyle(
                         color: kGreenDarkColor, fontWeight: FontWeight.bold),
                   ),
@@ -323,5 +332,31 @@ class _BodyState extends State<Body> {
     _dcpkgController.clear();
     _otcController.clear();
     _otcpkgController.clear();
+  }
+
+  bool checkValue() {
+    if(_ocController.text.isEmpty){_ocController.text = "0.00";}
+    if(_ocpkgController.text.isEmpty){_ocpkgController.text = "0.00";}
+    if(_dcController.text.isEmpty){_dcController.text = "0.00";}
+    if(_dcpkgController.text.isEmpty){_dcpkgController.text = "0.00";}
+    if(_otcController.text.isEmpty){_otcController.text = "0.00";}
+    if(_otcpkgController.text.isEmpty){_otcpkgController.text = "0.00";}
+
+    if(_aolController.text.isEmpty || _aodController.text.isEmpty || _cwController.text.isEmpty || _afController.text.isEmpty){
+      return false;
+    }
+
+    if(double.tryParse(_cwController.text) == null || double.tryParse(_afController.text) == null || double.tryParse(_ocController.text) == null || double.tryParse(_ocpkgController.text) == null || double.tryParse(_dcController.text) == null || double.tryParse(_dcpkgController.text) == null || double.tryParse(_otcController.text) == null || double.tryParse(_otcpkgController.text) == null){
+      return false;
+    }
+
+    return true;
+  }
+
+  Offer? createOffer(){
+    if(checkValue() == true){
+      return Offer(aol: _aolController.text, aod: _aodController.text, af: double.parse(_afController.text), cw: double.parse(_cwController.text), oc: double.parse(_ocController.text), ocpkg: double.parse(_ocpkgController.text), dc: double.parse(_dcController.text), dcpkg: double.parse(_dcpkgController.text), otc: double.parse(_otcController.text), otcpkg: double.parse(_otcpkgController.text));
+    }
+    return null;
   }
 }
