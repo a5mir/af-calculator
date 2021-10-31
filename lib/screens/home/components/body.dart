@@ -47,6 +47,7 @@ class _BodyState extends State<Body> {
               ),
               onPressed: () {
                 _clearTextFields();
+                changeAddButtonValue();
               },
               child: SvgPicture.asset(
                 "assets/icons/Clear.svg",
@@ -94,10 +95,7 @@ class _BodyState extends State<Body> {
       body: GestureDetector(
         onTap: (){
           FocusManager.instance.primaryFocus?.unfocus();
-          currentCharges();
-          setState(() {
-            _addButtonController.text = "$totalCharges";
-          });
+          changeAddButtonValue();
         } ,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
@@ -348,6 +346,13 @@ class _BodyState extends State<Body> {
     );
   }
 
+  void changeAddButtonValue() {
+    currentCharges();
+    setState(() {
+      _addButtonController.text = "$totalCharges";
+    });
+  }
+
   void _clearTextFields() {
     _aolController.clear();
     _aodController.clear();
@@ -487,6 +492,8 @@ class _BodyState extends State<Body> {
       double otcpkg = (_otcpkgController.text.isNotEmpty && double.tryParse(_otcpkgController.text) != null) ? double.parse(_otcpkgController.text) : 0;
 
       totalCharges = af*cw+dcpkg*cw+ocpkg*cw+otcpkg*cw+dc+oc+otc;
+    } else {
+      totalCharges = 0;
     }
   }
 }
