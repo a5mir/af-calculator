@@ -14,6 +14,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
   var _aolController = TextEditingController();
   var _aodController = TextEditingController();
   var _cwController = TextEditingController();
@@ -24,8 +25,6 @@ class _BodyState extends State<Body> {
   var _dcpkgController = TextEditingController();
   var _otcController = TextEditingController();
   var _otcpkgController = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,46 +37,55 @@ class _BodyState extends State<Body> {
             height: getProportionateScreenHeight(56),
             child: TextButton(
               style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(56),),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(56),
+                ),
                 primary: kRedDarkColor,
                 backgroundColor: kRedLightColor,
               ),
-              onPressed: (){_clearTextFields();},
-              child: SvgPicture.asset("assets/icons/Clear.svg", color: kRedDarkColor,),
+              onPressed: () {
+                _clearTextFields();
+              },
+              child: SvgPicture.asset(
+                "assets/icons/Clear.svg",
+                color: kRedDarkColor,
+              ),
             ),
           ),
-          SizedBox(width: getProportionateScreenWidth(10),),
+          SizedBox(
+            width: getProportionateScreenWidth(10),
+          ),
           SizedBox(
             height: getProportionateScreenHeight(56),
             child: TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(56)),
-                  primary: kGreenDarkColor,
-                  backgroundColor: kGreenLightColor),
-              onPressed: () {
-                Offer? offer = createOffer();
-                if(offer != null){
-                  offerList.add(offer);
-                } else {
-                  // warning message
-                  print('warning');
-                  }
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(56)),
+                    primary: kGreenDarkColor,
+                    backgroundColor: kGreenLightColor),
+                onPressed: () {
+                  addButtonOnPressed();
                 },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset("assets/icons/Add.svg", color: kGreenDarkColor,),
-                  SizedBox(width: getProportionateScreenWidth(5),),
-                  Text(
-                    "00.0 EUR",
-                    style: TextStyle(
-                        color: kGreenDarkColor, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: getProportionateScreenWidth(5),),
-                ],
-              )
-            ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/icons/Add.svg",
+                      color: kGreenDarkColor,
+                    ),
+                    SizedBox(
+                      width: getProportionateScreenWidth(5),
+                    ),
+                    Text(
+                      "00.0 EUR",
+                      style: TextStyle(
+                          color: kGreenDarkColor, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: getProportionateScreenWidth(5),
+                    ),
+                  ],
+                )),
           ),
         ],
       ),
@@ -98,17 +106,28 @@ class _BodyState extends State<Body> {
                 ),
                 Row(
                   children: [
-                    Expanded(child: DefaultTextField(labelText: "AOL", textEditingController: _aolController,)),
+                    Expanded(
+                        child: DefaultTextField(
+                      labelText: "AOL",
+                      textEditingController: _aolController,
+                    )),
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(child: DefaultTextField(labelText: "AOD", textEditingController: _aodController,)),
+                    Expanded(
+                        child: DefaultTextField(
+                      labelText: "AOD",
+                      textEditingController: _aodController,
+                    )),
                   ],
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
                 ),
-                DefaultTextField(labelText: "CHARGEABLE WEIGHT (kg)", textEditingController: _cwController,),
+                DefaultTextField(
+                  labelText: "CHARGEABLE WEIGHT (kg)",
+                  textEditingController: _cwController,
+                ),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
                 ),
@@ -335,28 +354,116 @@ class _BodyState extends State<Body> {
   }
 
   bool checkValue() {
-    if(_ocController.text.isEmpty){_ocController.text = "0.00";}
-    if(_ocpkgController.text.isEmpty){_ocpkgController.text = "0.00";}
-    if(_dcController.text.isEmpty){_dcController.text = "0.00";}
-    if(_dcpkgController.text.isEmpty){_dcpkgController.text = "0.00";}
-    if(_otcController.text.isEmpty){_otcController.text = "0.00";}
-    if(_otcpkgController.text.isEmpty){_otcpkgController.text = "0.00";}
+    if (_ocController.text.isEmpty) {
+      _ocController.text = "0.00";
+    }
+    if (_ocpkgController.text.isEmpty) {
+      _ocpkgController.text = "0.00";
+    }
+    if (_dcController.text.isEmpty) {
+      _dcController.text = "0.00";
+    }
+    if (_dcpkgController.text.isEmpty) {
+      _dcpkgController.text = "0.00";
+    }
+    if (_otcController.text.isEmpty) {
+      _otcController.text = "0.00";
+    }
+    if (_otcpkgController.text.isEmpty) {
+      _otcpkgController.text = "0.00";
+    }
 
-    if(_aolController.text.isEmpty || _aodController.text.isEmpty || _cwController.text.isEmpty || _afController.text.isEmpty){
+    if (_aolController.text.isEmpty ||
+        _aodController.text.isEmpty ||
+        _cwController.text.isEmpty ||
+        _afController.text.isEmpty) {
       return false;
     }
 
-    if(double.tryParse(_cwController.text) == null || double.tryParse(_afController.text) == null || double.tryParse(_ocController.text) == null || double.tryParse(_ocpkgController.text) == null || double.tryParse(_dcController.text) == null || double.tryParse(_dcpkgController.text) == null || double.tryParse(_otcController.text) == null || double.tryParse(_otcpkgController.text) == null){
+    if (double.tryParse(_cwController.text) == null ||
+        double.tryParse(_afController.text) == null ||
+        double.tryParse(_ocController.text) == null ||
+        double.tryParse(_ocpkgController.text) == null ||
+        double.tryParse(_dcController.text) == null ||
+        double.tryParse(_dcpkgController.text) == null ||
+        double.tryParse(_otcController.text) == null ||
+        double.tryParse(_otcpkgController.text) == null) {
       return false;
     }
 
     return true;
   }
 
-  Offer? createOffer(){
-    if(checkValue() == true){
-      return Offer(aol: _aolController.text, aod: _aodController.text, af: double.parse(_afController.text), cw: double.parse(_cwController.text), oc: double.parse(_ocController.text), ocpkg: double.parse(_ocpkgController.text), dc: double.parse(_dcController.text), dcpkg: double.parse(_dcpkgController.text), otc: double.parse(_otcController.text), otcpkg: double.parse(_otcpkgController.text));
+  Offer? createOffer() {
+    if (checkValue() == true) {
+      return Offer(
+          aol: _aolController.text,
+          aod: _aodController.text,
+          af: double.parse(_afController.text),
+          cw: double.parse(_cwController.text),
+          oc: double.parse(_ocController.text),
+          ocpkg: double.parse(_ocpkgController.text),
+          dc: double.parse(_dcController.text),
+          dcpkg: double.parse(_dcpkgController.text),
+          otc: double.parse(_otcController.text),
+          otcpkg: double.parse(_otcpkgController.text));
     }
     return null;
+  }
+
+  void addButtonOnPressed () {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Offer? offer = createOffer();
+    if (offer != null) {
+      offerList.add(offer);
+    } else {
+      // warning message
+      showGeneralDialog(
+          barrierLabel: "barrier",
+          barrierDismissible: true,
+          barrierColor: Colors.black.withOpacity(0.5),
+          transitionDuration: Duration(milliseconds: 300),
+          context: context,
+          pageBuilder: (_, __, ___) {
+            return Align(
+              alignment: Alignment.center,
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(15),),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [SvgPicture.asset("assets/icons/Error.svg", color: kRedDarkColor,), SizedBox(width: getProportionateScreenWidth(10),), Text("ERROR",
+                        style: TextStyle(decoration: TextDecoration.none,
+                          color: kRedDarkColor,
+                          fontFamily: "Muli",
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,)),],),
+                    SizedBox(height: getProportionateScreenHeight(15),),
+                    Text("Please make sure all fields are filled in correctly.", style: TextStyle(decoration: TextDecoration.none,
+                      color: kRedDarkColor,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: "Muli",
+                      fontSize: 10,)),
+                    SizedBox(height: getProportionateScreenHeight(25),),
+                  ],
+                ),
+                margin: EdgeInsets.only(
+                    bottom: 10, left: 10, right: 10),
+                decoration: BoxDecoration(
+                  color: kRedLightColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            );
+          },
+          transitionBuilder: (_, anim, __, child) {
+            return SlideTransition(
+              position:
+              Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                  .animate(anim),
+              child: child,
+            );
+          });
+    }
   }
 }
