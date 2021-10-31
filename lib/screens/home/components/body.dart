@@ -15,6 +15,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
+  double totalCharges = 0;
   var _aolController = TextEditingController();
   var _aodController = TextEditingController();
   var _cwController = TextEditingController();
@@ -25,6 +26,7 @@ class _BodyState extends State<Body> {
   var _dcpkgController = TextEditingController();
   var _otcController = TextEditingController();
   var _otcpkgController = TextEditingController();
+  var _addButtonController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class _BodyState extends State<Body> {
                       width: getProportionateScreenWidth(5),
                     ),
                     Text(
-                      "00.0 EUR",
+                      "$totalCharges EUR",
                       style: TextStyle(
                           color: kGreenDarkColor, fontWeight: FontWeight.bold),
                     ),
@@ -85,12 +87,18 @@ class _BodyState extends State<Body> {
                       width: getProportionateScreenWidth(5),
                     ),
                   ],
-                )),
+                ),),
           ),
         ],
       ),
       body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onTap: (){
+          FocusManager.instance.primaryFocus?.unfocus();
+          currentCharges();
+          setState(() {
+            _addButtonController.text = "$totalCharges";
+          });
+        } ,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -464,6 +472,21 @@ class _BodyState extends State<Body> {
               child: child,
             );
           });
+    }
+  }
+
+  void currentCharges() {
+    if(_cwController.text.isNotEmpty && double.tryParse(_cwController.text) != null){
+      double cw = double.parse(_cwController.text);
+      double af = (_afController.text.isNotEmpty && double.tryParse(_afController.text) != null) ? double.parse(_afController.text) : 0;
+      double dc = (_dcController.text.isNotEmpty && double.tryParse(_dcController.text) != null) ? double.parse(_dcController.text) : 0;
+      double dcpkg = (_dcpkgController.text.isNotEmpty && double.tryParse(_dcpkgController.text) != null) ? double.parse(_dcpkgController.text) : 0;
+      double oc = (_ocController.text.isNotEmpty && double.tryParse(_ocController.text) != null) ? double.parse(_ocController.text) : 0;
+      double ocpkg = (_ocpkgController.text.isNotEmpty && double.tryParse(_ocpkgController.text) != null) ? double.parse(_ocpkgController.text) : 0;
+      double otc = (_otcController.text.isNotEmpty && double.tryParse(_otcController.text) != null) ? double.parse(_otcController.text) : 0;
+      double otcpkg = (_otcpkgController.text.isNotEmpty && double.tryParse(_otcpkgController.text) != null) ? double.parse(_otcpkgController.text) : 0;
+
+      totalCharges = af*cw+dcpkg*cw+ocpkg*cw+otcpkg*cw+dc+oc+otc;
     }
   }
 }
