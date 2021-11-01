@@ -5,6 +5,7 @@ import 'package:af_calculator/model/offer.dart';
 import 'package:af_calculator/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:forex_conversion/forex_conversion.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
+  final fx = Forex();
   double totalCharges = 0;
   var _aolController = TextEditingController();
   var _aodController = TextEditingController();
@@ -27,6 +29,14 @@ class _BodyState extends State<Body> {
   var _otcController = TextEditingController();
   var _otcpkgController = TextEditingController();
   var _addButtonController = TextEditingController();
+
+  int afdd = 0;
+  int ocdd = 0;
+  int ocpkgdd = 0;
+  int dcdd = 0;
+  int dcpkgdd = 0;
+  int otcdd = 0;
+  int otcpkgdd = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +143,7 @@ class _BodyState extends State<Body> {
                 DefaultTextField(
                   labelText: "CHARGEABLE WEIGHT (kg)",
                   textEditingController: _cwController,
+                  textInputType: TextInputType.number,
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(20),
@@ -347,9 +358,8 @@ class _BodyState extends State<Body> {
   }
 
   void changeAddButtonValue() {
-    currentCharges();
     setState(() {
-      _addButtonController.text = "$totalCharges";
+      currentCharges().then((_) => setState((){_addButtonController.text = "$totalCharges";}));
     });
   }
 
@@ -480,7 +490,7 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void currentCharges() {
+  Future<void> currentCharges() async {
     if(_cwController.text.isNotEmpty && double.tryParse(_cwController.text) != null){
       double cw = double.parse(_cwController.text);
       double af = (_afController.text.isNotEmpty && double.tryParse(_afController.text) != null) ? double.parse(_afController.text) : 0;
@@ -491,7 +501,17 @@ class _BodyState extends State<Body> {
       double otc = (_otcController.text.isNotEmpty && double.tryParse(_otcController.text) != null) ? double.parse(_otcController.text) : 0;
       double otcpkg = (_otcpkgController.text.isNotEmpty && double.tryParse(_otcpkgController.text) != null) ? double.parse(_otcpkgController.text) : 0;
 
+      af = await fx.getCurrencyConverted("USD", "EUR", af);
+      dc = await fx.getCurrencyConverted("USD", "EUR", dc);
+      dcpkg = await fx.getCurrencyConverted("USD", "EUR", dcpkg);
+      oc = await fx.getCurrencyConverted("USD", "EUR", oc);
+      ocpkg = await fx.getCurrencyConverted("USD", "EUR", ocpkg);
+      otc = await fx.getCurrencyConverted("USD", "EUR", otc);
+      otcpkg = await fx.getCurrencyConverted("USD", "EUR", otcpkg);
+
       totalCharges = af*cw+dcpkg*cw+ocpkg*cw+otcpkg*cw+dc+oc+otc;
+      totalCharges = double.parse(totalCharges.toStringAsExponential(2));
+
     } else {
       totalCharges = 0;
     }
