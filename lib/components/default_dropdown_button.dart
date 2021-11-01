@@ -6,9 +6,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DefaultDropdownButton extends StatefulWidget {
   var _currency = ["USD", "EUR", "BAM"];
   String _dValue = "null";
+  final Function(String)? valueReturned;
+  String nod;
 
   DefaultDropdownButton({
     Key? key,
+    this.valueReturned,
+    required this.nod,
   }) : super(key: key);
 
 
@@ -69,6 +73,7 @@ class _DefaultDropdownButtonState extends State<DefaultDropdownButton> {
           onChanged: (val) {
             setState(() {
               widget._dValue = val!;
+              widget.valueReturned!(val+widget.nod);
               });
           },
         ),

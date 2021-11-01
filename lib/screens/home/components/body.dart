@@ -15,7 +15,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   final fx = Forex();
   double totalCharges = 0;
   var _aolController = TextEditingController();
@@ -30,13 +29,13 @@ class _BodyState extends State<Body> {
   var _otcpkgController = TextEditingController();
   var _addButtonController = TextEditingController();
 
-  int afdd = 0;
-  int ocdd = 0;
-  int ocpkgdd = 0;
-  int dcdd = 0;
-  int dcpkgdd = 0;
-  int otcdd = 0;
-  int otcpkgdd = 0;
+  String svAF = "USD";
+  String svOC = "USD";
+  String svOCpkg = "USD";
+  String svDC = "USD";
+  String svDCpkg = "USD";
+  String svOTC = "USD";
+  String svOTCpkg = "USD";
 
   @override
   Widget build(BuildContext context) {
@@ -71,42 +70,43 @@ class _BodyState extends State<Body> {
           SizedBox(
             height: getProportionateScreenHeight(56),
             child: TextButton(
-                style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(56)),
-                    primary: kGreenDarkColor,
-                    backgroundColor: kGreenLightColor),
-                onPressed: () {
-                  addButtonOnPressed();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/Add.svg",
-                      color: kGreenDarkColor,
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(5),
-                    ),
-                    Text(
-                      "$totalCharges EUR",
-                      style: TextStyle(
-                          color: kGreenDarkColor, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(5),
-                    ),
-                  ],
-                ),),
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(56)),
+                  primary: kGreenDarkColor,
+                  backgroundColor: kGreenLightColor),
+              onPressed: () {
+                addButtonOnPressed();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/icons/Add.svg",
+                    color: kGreenDarkColor,
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(5),
+                  ),
+                  Text(
+                    "$totalCharges EUR",
+                    style: TextStyle(
+                        color: kGreenDarkColor, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(5),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
           changeAddButtonValue();
-        } ,
+        },
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -178,7 +178,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "AF",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -214,7 +219,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "OC",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -233,7 +243,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "OK",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -269,7 +284,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "DC",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -288,7 +308,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "DK",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -324,7 +349,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "TC",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -343,7 +373,12 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       width: getProportionateScreenWidth(20),
                     ),
-                    Expanded(flex: 40, child: DefaultDropdownButton()),
+                    Expanded(
+                        flex: 40,
+                        child: DefaultDropdownButton(
+                          valueReturned: _handleValueReturned,
+                          nod: "TK",
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -359,7 +394,9 @@ class _BodyState extends State<Body> {
 
   void changeAddButtonValue() {
     setState(() {
-      currentCharges().then((_) => setState((){_addButtonController.text = "$totalCharges";}));
+      currentCharges().then((_) => setState(() {
+            _addButtonController.text = "$totalCharges";
+          }));
     });
   }
 
@@ -434,7 +471,7 @@ class _BodyState extends State<Body> {
     return null;
   }
 
-  void addButtonOnPressed () {
+  void addButtonOnPressed() {
     FocusManager.instance.primaryFocus?.unfocus();
     Offer? offer = createOffer();
     if (offer != null) {
@@ -454,24 +491,46 @@ class _BodyState extends State<Body> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: getProportionateScreenHeight(15),),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [SvgPicture.asset("assets/icons/Error.svg", color: kRedDarkColor,), SizedBox(width: getProportionateScreenWidth(10),), Text("ERROR",
-                        style: TextStyle(decoration: TextDecoration.none,
+                    SizedBox(
+                      height: getProportionateScreenHeight(15),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/Error.svg",
                           color: kRedDarkColor,
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(10),
+                        ),
+                        Text("ERROR",
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: kRedDarkColor,
+                              fontFamily: "Muli",
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(15),
+                    ),
+                    Text("Please make sure all fields are filled in correctly.",
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: kRedDarkColor,
+                          fontWeight: FontWeight.normal,
                           fontFamily: "Muli",
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,)),],),
-                    SizedBox(height: getProportionateScreenHeight(15),),
-                    Text("Please make sure all fields are filled in correctly.", style: TextStyle(decoration: TextDecoration.none,
-                      color: kRedDarkColor,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Muli",
-                      fontSize: 10,)),
-                    SizedBox(height: getProportionateScreenHeight(25),),
+                          fontSize: 10,
+                        )),
+                    SizedBox(
+                      height: getProportionateScreenHeight(25),
+                    ),
                   ],
                 ),
-                margin: EdgeInsets.only(
-                    bottom: 10, left: 10, right: 10),
+                margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
                 decoration: BoxDecoration(
                   color: kRedLightColor,
                   borderRadius: BorderRadius.circular(10),
@@ -482,8 +541,7 @@ class _BodyState extends State<Body> {
           transitionBuilder: (_, anim, __, child) {
             return SlideTransition(
               position:
-              Tween(begin: Offset(0, 1), end: Offset(0, 0))
-                  .animate(anim),
+                  Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
               child: child,
             );
           });
@@ -491,29 +549,80 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> currentCharges() async {
-    if(_cwController.text.isNotEmpty && double.tryParse(_cwController.text) != null){
+    if (_cwController.text.isNotEmpty &&
+        double.tryParse(_cwController.text) != null) {
       double cw = double.parse(_cwController.text);
-      double af = (_afController.text.isNotEmpty && double.tryParse(_afController.text) != null) ? double.parse(_afController.text) : 0;
-      double dc = (_dcController.text.isNotEmpty && double.tryParse(_dcController.text) != null) ? double.parse(_dcController.text) : 0;
-      double dcpkg = (_dcpkgController.text.isNotEmpty && double.tryParse(_dcpkgController.text) != null) ? double.parse(_dcpkgController.text) : 0;
-      double oc = (_ocController.text.isNotEmpty && double.tryParse(_ocController.text) != null) ? double.parse(_ocController.text) : 0;
-      double ocpkg = (_ocpkgController.text.isNotEmpty && double.tryParse(_ocpkgController.text) != null) ? double.parse(_ocpkgController.text) : 0;
-      double otc = (_otcController.text.isNotEmpty && double.tryParse(_otcController.text) != null) ? double.parse(_otcController.text) : 0;
-      double otcpkg = (_otcpkgController.text.isNotEmpty && double.tryParse(_otcpkgController.text) != null) ? double.parse(_otcpkgController.text) : 0;
+      double af = (_afController.text.isNotEmpty &&
+              double.tryParse(_afController.text) != null)
+          ? double.parse(_afController.text)
+          : 0;
+      double dc = (_dcController.text.isNotEmpty &&
+              double.tryParse(_dcController.text) != null)
+          ? double.parse(_dcController.text)
+          : 0;
+      double dcpkg = (_dcpkgController.text.isNotEmpty &&
+              double.tryParse(_dcpkgController.text) != null)
+          ? double.parse(_dcpkgController.text)
+          : 0;
+      double oc = (_ocController.text.isNotEmpty &&
+              double.tryParse(_ocController.text) != null)
+          ? double.parse(_ocController.text)
+          : 0;
+      double ocpkg = (_ocpkgController.text.isNotEmpty &&
+              double.tryParse(_ocpkgController.text) != null)
+          ? double.parse(_ocpkgController.text)
+          : 0;
+      double otc = (_otcController.text.isNotEmpty &&
+              double.tryParse(_otcController.text) != null)
+          ? double.parse(_otcController.text)
+          : 0;
+      double otcpkg = (_otcpkgController.text.isNotEmpty &&
+              double.tryParse(_otcpkgController.text) != null)
+          ? double.parse(_otcpkgController.text)
+          : 0;
 
-      af = await fx.getCurrencyConverted("USD", "EUR", af);
-      dc = await fx.getCurrencyConverted("USD", "EUR", dc);
-      dcpkg = await fx.getCurrencyConverted("USD", "EUR", dcpkg);
-      oc = await fx.getCurrencyConverted("USD", "EUR", oc);
-      ocpkg = await fx.getCurrencyConverted("USD", "EUR", ocpkg);
-      otc = await fx.getCurrencyConverted("USD", "EUR", otc);
-      otcpkg = await fx.getCurrencyConverted("USD", "EUR", otcpkg);
+      (svAF=="USD") ? af = await fx.getCurrencyConverted("USD", "EUR", af) : (svAF=="BAM") ? af = af/1.95583 : af;
+      (svOC=="USD") ? oc = await fx.getCurrencyConverted("USD", "EUR", oc) : (svOC=="BAM") ? oc = oc/1.95583 : oc;
+      (svOCpkg=="USD") ? ocpkg = await fx.getCurrencyConverted("USD", "EUR", ocpkg) : (svOCpkg=="BAM") ? ocpkg = ocpkg/1.95583 : ocpkg;
+      (svDC=="USD") ? dc = await fx.getCurrencyConverted("USD", "EUR", dc) : (svDC=="BAM") ? dc = dc/1.95583 : dc;
+      (svDCpkg=="USD") ? dcpkg = await fx.getCurrencyConverted("USD", "EUR", dcpkg) : (svDCpkg=="BAM") ? dcpkg = dcpkg/1.95583 : dcpkg;
+      (svOTC=="USD") ? otc = await fx.getCurrencyConverted("USD", "EUR", otc) : (svOTC=="BAM") ? otc = otc/1.95583 : otc;
+      (svOTCpkg=="USD") ? otcpkg = await fx.getCurrencyConverted("USD", "EUR", otcpkg) : (svOTCpkg=="BAM") ? otcpkg = otcpkg/1.95583 : otcpkg;
 
-      totalCharges = af*cw+dcpkg*cw+ocpkg*cw+otcpkg*cw+dc+oc+otc;
+      totalCharges =
+          af * cw + dcpkg * cw + ocpkg * cw + otcpkg * cw + dc + oc + otc;
       totalCharges = double.parse(totalCharges.toStringAsExponential(2));
-
     } else {
       totalCharges = 0;
+    }
+  }
+
+  _handleValueReturned(String value) {
+    String fValue = value.substring(0, 3);
+    String lValue = value.substring(3, 5);
+
+    switch (lValue) {
+      case "AF":
+        svAF = fValue;
+        break;
+      case "OC":
+        svOC = fValue;
+        break;
+      case "OK":
+        svOCpkg = fValue;
+        break;
+      case "DC":
+        svDC = fValue;
+        break;
+      case "DK":
+        svDCpkg = fValue;
+        break;
+      case "TC":
+        svOTC = fValue;
+        break;
+      case "TK":
+        svOTCpkg = fValue;
+        break;
     }
   }
 }
