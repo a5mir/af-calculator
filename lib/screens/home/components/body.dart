@@ -17,6 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final fx = Forex();
   double totalCharges = 0;
+  bool isLoading = false;
   var _aolController = TextEditingController();
   var _aodController = TextEditingController();
   var _cwController = TextEditingController();
@@ -44,6 +45,32 @@ class _BodyState extends State<Body> {
         //mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          SizedBox(
+            height: getProportionateScreenHeight(56),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(56),
+                ),
+                primary: kBlueDarkColor,
+                backgroundColor: kBlueLightColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  isLoading = true;
+                  changeAddButtonValue();
+                });
+
+              },
+              child: !isLoading ? SvgPicture.asset(
+                "assets/icons/Refresh.svg",
+                color: kBlueDarkColor,
+              ) : SizedBox(child: Center(child: CircularProgressIndicator(color: kBlueDarkColor,),), width: getProportionateScreenWidth(15), height: getProportionateScreenHeight(15),)
+            ),
+          ),
+          SizedBox(
+            width: getProportionateScreenWidth(10),
+          ),
           SizedBox(
             height: getProportionateScreenHeight(56),
             child: TextButton(
@@ -394,8 +421,10 @@ class _BodyState extends State<Body> {
 
   void changeAddButtonValue() {
     setState(() {
+
       currentCharges().then((_) => setState(() {
             _addButtonController.text = "$totalCharges";
+            isLoading = false;
           }));
     });
   }
