@@ -38,8 +38,11 @@ class _BodyState extends State<Body> {
   String svOTC = "USD";
   String svOTCpkg = "USD";
 
+  double eurusd = 0;
+
   @override
   Widget build(BuildContext context) {
+    fx.getCurrencyConverted("USD", "EUR", 1).then((value) => eurusd = value);
     return Scaffold(
       floatingActionButton: Row(
         //mainAxisSize: MainAxisSize.max,
@@ -48,25 +51,33 @@ class _BodyState extends State<Body> {
           SizedBox(
             height: getProportionateScreenHeight(56),
             child: TextButton(
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(56),
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(56),
+                  ),
+                  primary: kBlueDarkColor,
+                  backgroundColor: kBlueLightColor,
                 ),
-                primary: kBlueDarkColor,
-                backgroundColor: kBlueLightColor,
-              ),
-              onPressed: () {
-                setState(() {
-                  isLoading = true;
-                  changeAddButtonValue();
-                });
-
-              },
-              child: !isLoading ? SvgPicture.asset(
-                "assets/icons/Refresh.svg",
-                color: kBlueDarkColor,
-              ) : SizedBox(child: Center(child: CircularProgressIndicator(color: kBlueDarkColor,),), width: getProportionateScreenWidth(15), height: getProportionateScreenHeight(15),)
-            ),
+                onPressed: () {
+                  setState(() {
+                    isLoading = true;
+                    changeAddButtonValue();
+                  });
+                },
+                child: !isLoading
+                    ? SvgPicture.asset(
+                        "assets/icons/Refresh.svg",
+                        color: kBlueDarkColor,
+                      )
+                    : SizedBox(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: kBlueDarkColor,
+                          ),
+                        ),
+                        width: getProportionateScreenWidth(15),
+                        height: getProportionateScreenHeight(15),
+                      )),
           ),
           SizedBox(
             width: getProportionateScreenWidth(10),
@@ -421,7 +432,7 @@ class _BodyState extends State<Body> {
 
   void changeAddButtonValue() {
     setState(() {
-
+      FocusManager.instance.primaryFocus?.unfocus();
       currentCharges().then((_) => setState(() {
             _addButtonController.text = "$totalCharges";
             isLoading = false;
@@ -511,7 +522,7 @@ class _BodyState extends State<Body> {
           barrierLabel: "barrier",
           barrierDismissible: true,
           barrierColor: Colors.black.withOpacity(0.5),
-          transitionDuration: Duration(milliseconds: 300),
+          transitionDuration: Duration(milliseconds: 200),
           context: context,
           pageBuilder: (_, __, ___) {
             return Align(
@@ -567,11 +578,13 @@ class _BodyState extends State<Body> {
               ),
             );
           },
-          transitionBuilder: (_, anim, __, child) {
-            return SlideTransition(
-              position:
-                  Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
-              child: child,
+          transitionBuilder: (_, a1, s2, child) {
+            return Transform.scale(
+              scale: a1.value,
+              child: Opacity(
+                opacity: a1.value,
+                child: child,
+              ),
             );
           });
     }
@@ -610,13 +623,41 @@ class _BodyState extends State<Body> {
           ? double.parse(_otcpkgController.text)
           : 0;
 
-      (svAF=="USD") ? af = await fx.getCurrencyConverted("USD", "EUR", af) : (svAF=="BAM") ? af = af/1.95583 : af;
-      (svOC=="USD") ? oc = await fx.getCurrencyConverted("USD", "EUR", oc) : (svOC=="BAM") ? oc = oc/1.95583 : oc;
-      (svOCpkg=="USD") ? ocpkg = await fx.getCurrencyConverted("USD", "EUR", ocpkg) : (svOCpkg=="BAM") ? ocpkg = ocpkg/1.95583 : ocpkg;
-      (svDC=="USD") ? dc = await fx.getCurrencyConverted("USD", "EUR", dc) : (svDC=="BAM") ? dc = dc/1.95583 : dc;
-      (svDCpkg=="USD") ? dcpkg = await fx.getCurrencyConverted("USD", "EUR", dcpkg) : (svDCpkg=="BAM") ? dcpkg = dcpkg/1.95583 : dcpkg;
-      (svOTC=="USD") ? otc = await fx.getCurrencyConverted("USD", "EUR", otc) : (svOTC=="BAM") ? otc = otc/1.95583 : otc;
-      (svOTCpkg=="USD") ? otcpkg = await fx.getCurrencyConverted("USD", "EUR", otcpkg) : (svOTCpkg=="BAM") ? otcpkg = otcpkg/1.95583 : otcpkg;
+      (svAF == "USD")
+          ? af = af * eurusd
+          : (svAF == "BAM")
+              ? af = af / 1.95583
+              : af;
+      (svOC == "USD")
+          ? oc = oc * eurusd
+          : (svOC == "BAM")
+              ? oc = oc / 1.95583
+              : oc;
+      (svOCpkg == "USD")
+          ? ocpkg = ocpkg * eurusd
+          : (svOCpkg == "BAM")
+              ? ocpkg = ocpkg / 1.95583
+              : ocpkg;
+      (svDC == "USD")
+          ? dc = dc * eurusd
+          : (svDC == "BAM")
+              ? dc = dc / 1.95583
+              : dc;
+      (svDCpkg == "USD")
+          ? dcpkg = dcpkg * eurusd
+          : (svDCpkg == "BAM")
+              ? dcpkg = dcpkg / 1.95583
+              : dcpkg;
+      (svOTC == "USD")
+          ? otc = otc * eurusd
+          : (svOTC == "BAM")
+              ? otc = otc / 1.95583
+              : otc;
+      (svOTCpkg == "USD")
+          ? otcpkg = otcpkg * eurusd
+          : (svOTCpkg == "BAM")
+              ? otcpkg = otcpkg / 1.95583
+              : otcpkg;
 
       totalCharges =
           af * cw + dcpkg * cw + ocpkg * cw + otcpkg * cw + dc + oc + otc;
