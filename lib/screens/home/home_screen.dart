@@ -1,5 +1,6 @@
 import 'package:af_calculator/constants.dart';
 import 'package:af_calculator/screens/home/components/body.dart';
+import 'package:af_calculator/screens/list/list_screen.dart';
 import 'package:af_calculator/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _pageIndex = 0;
   late PageController _pageController;
 
-  List<Widget> tabPages = [Body()];
+  List<Widget> tabPages = [Body(), ListScreen()];
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: _pageIndex == 0 ? Text("Home") : _pageIndex == 1 ? Text("List") : Text("Other"),
         centerTitle: true,
         titleTextStyle: TextStyle(
             color: Colors.black, fontSize: getProportionateScreenWidth(20)),

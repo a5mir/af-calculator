@@ -506,7 +506,8 @@ class _BodyState extends State<Body> {
           dc: double.parse(_dcController.text),
           dcpkg: double.parse(_dcpkgController.text),
           otc: double.parse(_otcController.text),
-          otcpkg: double.parse(_otcpkgController.text));
+          otcpkg: double.parse(_otcpkgController.text),
+          value: 11);
     }
     return null;
   }
