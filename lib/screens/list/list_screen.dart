@@ -2,6 +2,7 @@ import 'package:af_calculator/constants.dart';
 import 'package:af_calculator/model/offer.dart';
 import 'package:af_calculator/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ListScreen extends StatefulWidget {
   static String routeName = "/list";
@@ -37,9 +38,31 @@ class _ListScreenState extends State<ListScreen> {
                 color: kBackgroundColor,
                 child: ListTile(
                   onTap: (){},
-                  title: Text(offer.value.toString() + " EUR"),
-                  subtitle: Text("AOL: " + offer.aol + " AOD: " + offer.aod),
-                 ),
+                  leading: Text(offer.value.toString(), style: TextStyle(fontSize: getProportionateScreenWidth(20), fontWeight: FontWeight.bold, color: Colors.black),),
+                  trailing: IntrinsicHeight(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 12,
+                      children: [
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          width: 2,
+                          color: kPrimaryLightColor,
+                        ),
+                        SvgPicture.asset("assets/icons/Aol.svg", color: Colors.black54,),
+                        Text(offer.aol, textAlign: TextAlign.center,),
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          width: 2,
+                          color: kPrimaryLightColor,
+                        ),
+                        SvgPicture.asset("assets/icons/Aod.svg", color: Colors.black54,),
+                        Text(offer.aod),
+                      ],
+                    ),
+                  ),
+                ),
+
               ),
             );
           },
