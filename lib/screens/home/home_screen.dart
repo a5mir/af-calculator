@@ -65,19 +65,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kPrimaryColor,
               )),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset("assets/icons/Coins.svg",
+              icon: SvgPicture.asset("assets/icons/List.svg",
                   color: Colors.black),
-              label: 'Charges',
+              label: 'List',
               activeIcon: SvgPicture.asset(
-                "assets/icons/CoinsB.svg",
+                "assets/icons/List.svg",
                 color: kPrimaryColor,
               )),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset("assets/icons/List.svg",
+              icon: SvgPicture.asset("assets/icons/Box.svg",
                   color: Colors.black),
               label: 'Weight',
               activeIcon: SvgPicture.asset(
-                "assets/icons/List.svg",
+                "assets/icons/BoxB.svg",
                 color: kPrimaryColor,
               )),
         ],

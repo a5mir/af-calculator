@@ -38,7 +38,7 @@ class _ListScreenState extends State<ListScreen> {
                 color: kBackgroundColor,
                 child: ListTile(
                   onTap: (){},
-                  leading: Text(offer.value.toString(), style: TextStyle(fontSize: getProportionateScreenWidth(20), fontWeight: FontWeight.bold, color: Colors.black),),
+                  leading: Container(width: getProportionateScreenWidth(120),child: Text(offer.value.toString(), overflow: TextOverflow.fade, maxLines: 1, softWrap: false , style: TextStyle(fontSize: getProportionateScreenWidth(20), fontWeight: FontWeight.bold, color: Colors.black),)),
                   trailing: IntrinsicHeight(
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,

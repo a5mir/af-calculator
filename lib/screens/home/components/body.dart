@@ -497,8 +497,8 @@ class _BodyState extends State<Body> {
   Offer? createOffer() {
     if (checkValue() == true) {
       return Offer(
-          aol: _aolController.text,
-          aod: _aodController.text,
+          aol: _aolController.text.trim().toUpperCase(),
+          aod: _aodController.text.trim().toUpperCase(),
           af: double.parse(_afController.text),
           cw: double.parse(_cwController.text),
           oc: double.parse(_ocController.text),
