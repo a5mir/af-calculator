@@ -12,4 +12,6 @@ class Offer {
 
 List<Offer> offerList = [
   Offer(aol: "SJJ", aod: "LAX", af: 2, cw: 1, oc: 1, ocpkg: 1, dc: 1, dcpkg: 1, otc: 1, otcpkg: 1, value: 110),
+  Offer(aol: "SJJ", aod: "LAX", af: 2, cw: 1, oc: 1, ocpkg: 1, dc: 1, dcpkg: 1, otc: 1, otcpkg: 1, value: 1111),
+  Offer(aol: "SJJ", aod: "LAX", af: 2, cw: 1, oc: 1, ocpkg: 1, dc: 1, dcpkg: 1, otc: 1, otcpkg: 1, value: 333),
 ];
