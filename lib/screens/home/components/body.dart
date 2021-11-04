@@ -126,10 +126,16 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     width: getProportionateScreenWidth(5),
                   ),
-                  Text(
-                    "$totalCharges EUR",
-                    style: TextStyle(
-                        color: kGreenDarkColor, fontWeight: FontWeight.bold),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 100),
+                    child: Text(
+                      "$totalCharges EUR",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      softWrap: false,
+                      style: TextStyle(
+                          color: kGreenDarkColor, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(
                     width: getProportionateScreenWidth(5),
@@ -517,9 +523,21 @@ class _BodyState extends State<Body> {
     Offer? offer = createOffer();
     if (offer != null) {
       offerList.add(offer);
-      defaultDialog(primaryColor: kGreenLightColor, secondaryColor: kGreenDarkColor, icon: "assets/icons/Check.svg", headerText: "DONE", bodyText: "The offer has been successfully added to the list!", context: context);
+      defaultDialog(
+          primaryColor: kGreenLightColor,
+          secondaryColor: kGreenDarkColor,
+          icon: "assets/icons/Check.svg",
+          headerText: "DONE",
+          bodyText: "The offer has been successfully added to the list!",
+          context: context);
     } else {
-      defaultDialog(primaryColor: kRedLightColor, secondaryColor: kRedDarkColor, icon: "assets/icons/Error.svg", headerText: "ERROR", bodyText: "Please make sure all fields are filled in correctly.", context: context);
+      defaultDialog(
+          primaryColor: kRedLightColor,
+          secondaryColor: kRedDarkColor,
+          icon: "assets/icons/Error.svg",
+          headerText: "ERROR",
+          bodyText: "Please make sure all fields are filled in correctly.",
+          context: context);
     }
   }
 
@@ -629,7 +647,13 @@ class _BodyState extends State<Body> {
     }
   }
 
-  defaultDialog({required Color primaryColor, required Color secondaryColor, required String icon, required String headerText, required String bodyText, required context}) {
+  defaultDialog(
+      {required Color primaryColor,
+      required Color secondaryColor,
+      required String icon,
+      required String headerText,
+      required String bodyText,
+      required context}) {
     showGeneralDialog(
         barrierLabel: "barrier",
         barrierDismissible: true,
@@ -700,5 +724,4 @@ class _BodyState extends State<Body> {
           );
         });
   }
-
 }
