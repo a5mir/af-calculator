@@ -1,3 +1,4 @@
+import 'package:af_calculator/components/default_dialog.dart';
 import 'package:af_calculator/components/default_dropdown_button.dart';
 import 'package:af_calculator/components/default_text_field.dart';
 import 'package:af_calculator/constants.dart';
@@ -523,7 +524,7 @@ class _BodyState extends State<Body> {
     Offer? offer = createOffer();
     if (offer != null) {
       offerList.add(offer);
-      defaultDialog(
+      DefaultDialog.defaultDialog(
           primaryColor: kGreenLightColor,
           secondaryColor: kGreenDarkColor,
           icon: "assets/icons/Check.svg",
@@ -531,7 +532,7 @@ class _BodyState extends State<Body> {
           bodyText: "The offer has been successfully added to the list!",
           context: context);
     } else {
-      defaultDialog(
+      DefaultDialog.defaultDialog(
           primaryColor: kRedLightColor,
           secondaryColor: kRedDarkColor,
           icon: "assets/icons/Error.svg",
@@ -647,81 +648,5 @@ class _BodyState extends State<Body> {
     }
   }
 
-  defaultDialog(
-      {required Color primaryColor,
-      required Color secondaryColor,
-      required String icon,
-      required String headerText,
-      required String bodyText,
-      required context}) {
-    showGeneralDialog(
-        barrierLabel: "barrier",
-        barrierDismissible: true,
-        barrierColor: Colors.black.withOpacity(0.5),
-        transitionDuration: Duration(milliseconds: 200),
-        context: context,
-        pageBuilder: (_, __, ___) {
-          return Align(
-            alignment: Alignment.center,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: getProportionateScreenHeight(15),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        icon,
-                        color: secondaryColor,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(10),
-                      ),
-                      Text(headerText,
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            color: secondaryColor,
-                            fontFamily: "Muli",
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: getProportionateScreenHeight(15),
-                  ),
-                  Text(bodyText,
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: secondaryColor,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: "Muli",
-                        fontSize: 10,
-                      )),
-                  SizedBox(
-                    height: getProportionateScreenHeight(25),
-                  ),
-                ],
-              ),
-              margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          );
-        },
-        transitionBuilder: (_, a1, s2, child) {
-          return Transform.scale(
-            scale: a1.value,
-            child: Opacity(
-              opacity: a1.value,
-              child: child,
-            ),
-          );
-        });
-  }
+
 }

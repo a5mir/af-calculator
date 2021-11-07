@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:af_calculator/components/default_dialog.dart';
 import 'package:af_calculator/components/default_text_field.dart';
 import 'package:af_calculator/constants.dart';
 import 'package:af_calculator/size_config.dart';
@@ -32,7 +31,13 @@ class _CwSceenState extends State<CwSceen> {
        totalCW += (double.parse(qlwh[0])*(double.parse(qlwh[1]) *double.parse(qlwh[2])*double.parse(qlwh[3])))/6000;
        totalCW = double.parse(totalCW.toStringAsExponential(3));
       } else {
-        print('error');
+        DefaultDialog.defaultDialog(
+            primaryColor: kRedLightColor,
+            secondaryColor: kRedDarkColor,
+            icon: "assets/icons/Error.svg",
+            headerText: "ERROR",
+            bodyText: "Please make sure all fields are filled in correctly.",
+            context: context);
       }
     });
   }
