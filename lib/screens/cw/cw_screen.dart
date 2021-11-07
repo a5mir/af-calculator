@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:af_calculator/components/default_text_field.dart';
 import 'package:af_calculator/constants.dart';
 import 'package:af_calculator/size_config.dart';
@@ -22,11 +24,20 @@ class _CwSceenState extends State<CwSceen> {
     setState(() {});
   }
 
-  sumData() {
+  sumCW() {
+    totalCW = 0;
     list.forEach((widget) {
-      print(widget.controller.text);
+      List<String> qlwh = widget.controller.text.trim().split('x');
+      if(qlwh.length == 4 && double.tryParse(qlwh[0]) != null && double.tryParse(qlwh[1]) != null && double.tryParse(qlwh[2]) != null && double.tryParse(qlwh[3]) != null) {
+       totalCW += (double.parse(qlwh[0])*(double.parse(qlwh[1]) *double.parse(qlwh[2])*double.parse(qlwh[3])))/6000;
+       totalCW = double.parse(totalCW.toStringAsExponential(3));
+      } else {
+        print('error');
+      }
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +66,8 @@ class _CwSceenState extends State<CwSceen> {
                     backgroundColor: kBlueLightColor,
                   ),
                   onPressed: () {
-                    setState(() {
-                      //update cw value
-                    });
+                    sumCW();
+                    setState(() {});
                   },
                   child: SvgPicture.asset(
                     "assets/icons/Refresh.svg",
