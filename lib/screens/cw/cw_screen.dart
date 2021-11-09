@@ -15,18 +15,18 @@ class CwSceen extends StatefulWidget {
 }
 
 class _CwSceenState extends State<CwSceen> {
-  List<DimTextField> list = [DimTextField()];
+  final List<TextEditingController> _listController = [];
   double totalCW = 0;
-
-  addField() {
-    list.add(DimTextField());
-    setState(() {});
-  }
 
   sumCW() {
     totalCW = 0;
-    list.forEach((widget) {
-      List<String> qlwh = widget.controller.text.trim().split('x');
+
+    List<String> list = _listController.map((TextEditingController controller) {
+      return controller.text;
+    }).toList();
+
+    for (var text in list) {
+      List<String> qlwh = text.trim().split('x');
       if(qlwh.length == 4 && double.tryParse(qlwh[0]) != null && double.tryParse(qlwh[1]) != null && double.tryParse(qlwh[2]) != null && double.tryParse(qlwh[3]) != null) {
        totalCW += (double.parse(qlwh[0])*(double.parse(qlwh[1]) *double.parse(qlwh[2])*double.parse(qlwh[3])))/6000;
        totalCW = double.parse(totalCW.toStringAsExponential(3));
@@ -39,10 +39,22 @@ class _CwSceenState extends State<CwSceen> {
             bodyText: "Please make sure all fields are filled in correctly.",
             context: context);
       }
-    });
+    }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _listController.insert(0, TextEditingController());
+  }
 
+  @override
+  void dispose() {
+    for(TextEditingController controller in _listController){
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +65,14 @@ class _CwSceenState extends State<CwSceen> {
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
-          itemCount: list.length,
+          itemCount: _listController.length,
           itemBuilder: (_, index) => Padding(
               padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-              child: list[index])),
+              child: Column(
+                children: [
+                  _textField(index),
+                ],
+              ))),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -78,26 +94,6 @@ class _CwSceenState extends State<CwSceen> {
                     "assets/icons/Refresh.svg",
                     color: kBlueDarkColor,
                   ))),
-          SizedBox(
-            width: getProportionateScreenWidth(10),
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(56),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(56)),
-                  primary: kGreenDarkColor,
-                  backgroundColor: kGreenLightColor),
-              onPressed: () {
-                addField();
-              },
-              child: SvgPicture.asset(
-                "assets/icons/Add.svg",
-                color: kGreenDarkColor,
-              ),
-            ),
-          ),
           SizedBox(
             width: getProportionateScreenWidth(10),
           ),
@@ -156,47 +152,64 @@ class _CwSceenState extends State<CwSceen> {
       ),
     );
   }
-}
 
-class DimTextField extends StatelessWidget {
-  final Function? press;
-  TextEditingController controller = new TextEditingController();
-  DimTextField({
-    Key? key,
-    this.press,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _textField(index){
     return Row(
       children: [
         Expanded(
             child: DefaultTextField(
-          labelText: "QxLxWxH (cm)",
-          textEditingController: controller,
-        )),
+              labelText: "QxLxWxH (cm)",
+              textEditingController: _listController[index],
+            )),
         SizedBox(
           width: 5,
         ),
         SizedBox(
           width: 3,
         ),
-        Column(
+        Row(
           children: [
-            SizedBox(
+            Visibility(
+              child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: TextButton(
+                      onPressed: (){
+                        _listController.removeAt(index);
+                        setState(() {
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                          backgroundColor: kRedLightColor, shape: CircleBorder()),
+                      child: SvgPicture.asset(
+                        "assets/icons/Delete.svg",
+                        color: kRedDarkColor,
+                      ),),),
+              visible: (index + 1) != _listController.length,
+            ),
+            SizedBox(width: getProportionateScreenWidth(5),),
+            Visibility(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: TextButton(
-                    onPressed: press as void Function()?,
-                    style: TextButton.styleFrom(
-                        backgroundColor: kRedLightColor, shape: CircleBorder()),
-                    child: SvgPicture.asset(
-                      "assets/icons/Delete.svg",
-                      color: kRedDarkColor,
-                    ))),
+                  onPressed: (){
+                    _listController.insert((index+1), TextEditingController());
+                    setState(() {
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: kGreenLightColor, shape: CircleBorder()),
+                  child: SvgPicture.asset(
+                    "assets/icons/Add.svg",
+                    color: kGreenDarkColor,
+                  ),),),
+              visible: index +1 == _listController.length,
+            ),
           ],
         ),
       ],
     );
   }
+
 }
