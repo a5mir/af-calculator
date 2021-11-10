@@ -20,7 +20,7 @@ class _ListScreenState extends State<ListScreen> {
     SizeConfig().init(context);
     return Scaffold(
       body: GestureDetector(
-        child: ListView.builder(
+        child: offerList.isNotEmpty ? ListView.builder(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -152,7 +152,7 @@ class _ListScreenState extends State<ListScreen> {
               ),
             );
           },
-        ),
+        ): Center(child: Column(mainAxisAlignment: MainAxisAlignment.center ,children: [SvgPicture.asset("assets/icons/List.svg", width: getProportionateScreenHeight(50),), SizedBox(height: getProportionateScreenHeight(20),), Text("EMPTY LIST! \n Any new calculation will appear here.", textAlign: TextAlign.center,),],) ),
       ),
     );
   }
