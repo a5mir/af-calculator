@@ -27,9 +27,17 @@ class _CwSceenState extends State<CwSceen> {
 
     for (var text in list) {
       List<String> qlwh = text.trim().split('x');
-      if(qlwh.length == 4 && double.tryParse(qlwh[0]) != null && double.tryParse(qlwh[1]) != null && double.tryParse(qlwh[2]) != null && double.tryParse(qlwh[3]) != null) {
-       totalCW += (double.parse(qlwh[0])*(double.parse(qlwh[1]) *double.parse(qlwh[2])*double.parse(qlwh[3])))/6000;
-       totalCW = double.parse(totalCW.toStringAsExponential(3));
+      if (qlwh.length == 4 &&
+          double.tryParse(qlwh[0]) != null &&
+          double.tryParse(qlwh[1]) != null &&
+          double.tryParse(qlwh[2]) != null &&
+          double.tryParse(qlwh[3]) != null) {
+        totalCW += (double.parse(qlwh[0]) *
+                (double.parse(qlwh[1]) *
+                    double.parse(qlwh[2]) *
+                    double.parse(qlwh[3]))) /
+            6000;
+        totalCW = double.parse(totalCW.toStringAsExponential(3));
       } else {
         DefaultDialog.defaultDialog(
             primaryColor: kRedLightColor,
@@ -38,6 +46,7 @@ class _CwSceenState extends State<CwSceen> {
             headerText: "ERROR",
             bodyText: "Please make sure all fields are filled in correctly.",
             context: context);
+        break;
       }
     }
   }
@@ -50,7 +59,7 @@ class _CwSceenState extends State<CwSceen> {
 
   @override
   void dispose() {
-    for(TextEditingController controller in _listController){
+    for (TextEditingController controller in _listController) {
       controller.dispose();
     }
     super.dispose();
@@ -106,19 +115,20 @@ class _CwSceenState extends State<CwSceen> {
                   primary: kYellowDarkColor,
                   backgroundColor: kYellowLightColor),
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: totalCW.toString())).then((value) =>
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      duration: const Duration(seconds: 1),
-                      content: const Text(
-                        'Copied to Clipboard',
-                        textAlign: TextAlign.center,
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height / 2,
-                          right: 20,
-                          left: 20),
-                    )));
+                Clipboard.setData(ClipboardData(text: totalCW.toString())).then(
+                    (value) =>
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 1),
+                          content: const Text(
+                            'Copied to Clipboard',
+                            textAlign: TextAlign.center,
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height / 2,
+                              right: 20,
+                              left: 20),
+                        )));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -153,63 +163,61 @@ class _CwSceenState extends State<CwSceen> {
     );
   }
 
-  Widget _textField(index){
+  Widget _textField(index) {
     return Row(
       children: [
         Expanded(
             child: DefaultTextField(
-              labelText: "QxLxWxH (cm)",
-              textEditingController: _listController[index],
-            )),
+          labelText: "QxLxWxH (cm)",
+          textEditingController: _listController[index],
+        )),
         SizedBox(
-          width: 5,
-        ),
-        SizedBox(
-          width: 3,
+          width: 8,
         ),
         Row(
           children: [
             Visibility(
               child: SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: TextButton(
-                      onPressed: (){
-                        _listController.removeAt(index);
-                        setState(() {
-                        });
-                      },
-                      style: TextButton.styleFrom(
-                          backgroundColor: kRedLightColor, shape: CircleBorder()),
-                      child: SvgPicture.asset(
-                        "assets/icons/Delete.svg",
-                        color: kRedDarkColor,
-                      ),),),
+                width: 40,
+                height: 40,
+                child: TextButton(
+                  onPressed: () {
+                    _listController.removeAt(index);
+                    setState(() {});
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: kRedLightColor, shape: CircleBorder()),
+                  child: SvgPicture.asset(
+                    "assets/icons/Delete.svg",
+                    color: kRedDarkColor,
+                  ),
+                ),
+              ),
               visible: (index + 1) != _listController.length,
             ),
-            SizedBox(width: getProportionateScreenWidth(5),),
             Visibility(
               child: SizedBox(
                 width: 40,
                 height: 40,
                 child: TextButton(
-                  onPressed: (){
-                    _listController.insert((index+1), TextEditingController());
-                    setState(() {
-                    });
+                  onPressed: () {
+                    _listController.insert(
+                        (index + 1), TextEditingController());
+                    setState(() {});
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: kGreenLightColor, shape: CircleBorder()),
                   child: SvgPicture.asset(
                     "assets/icons/Add.svg",
                     color: kGreenDarkColor,
-                  ),),),
-              visible: index +1 == _listController.length,
+                  ),
+                ),
+              ),
+              visible: index + 1 == _listController.length,
             ),
           ],
         ),
       ],
     );
   }
-
 }
